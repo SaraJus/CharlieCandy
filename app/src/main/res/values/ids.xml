@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="textViewInfo" type="id" />
+    <item name="textViewRegister" type="id" />
+    <item name="imageView2" type="id" />
+    <item name="btnIrCarrinho" type="id" />
+    <item name="btnAdicionarAoCarrinho" type="id" />
+    <item name="editQuantidadeDesejada" type="id" />
+    <item name="txtQuantidadeDisponivel" type="id" />
+    <item name="txtDescricaoProduto" type="id" />
+    <item name="txtNomeProduto" type="id" />
+    <item name="imgProduto" type="id" />
+    <item name="btnVoltar" type="id" />
+</resources>
