@@ -18,6 +18,8 @@ class CartActivity : AppCompatActivity() {
     private lateinit var totalTextView: TextView
     private lateinit var goToPaymentButton: Button
     private var total: Double = 0.0
+    private lateinit var cartAdapter: CartAdapter
+    private var cartItems: MutableList<Produto> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +33,9 @@ class CartActivity : AppCompatActivity() {
         fetchCartItems()
 
         goToPaymentButton.setOnClickListener {
-            // Ir para tela de pagamento enviando os dados
+            // LÃ³gica para ir para a tela de pagamento
         }
     }
-
-
 
     private fun fetchCartItems() {
         val retrofit = Retrofit.Builder()
@@ -44,26 +44,31 @@ class CartActivity : AppCompatActivity() {
             .build()
 
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
-        val idUsuario = sharedPreferences.getInt("id", 0)
+        val userId = sharedPreferences.getInt("id", 0)
 
         val api = retrofit.create(CartApiService::class.java)
-        api.getCartItems(userId = idUsuario).enqueue(object : Callback<List<Produto>> {
-
+        api.getCartItems(userId).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
-                    val cartItems = response.body()?.toMutableList() ?: mutableListOf()
-                    recyclerView.adapter = CartAdapter(cartItems, this@CartActivity) {
-                        total = cartItems.sumOf {
-                            (it.produtoPreco.toDoubleOrNull() ?: 0.0) * it.quantidadeDisponivel
-                        }
-                        totalTextView.text = "Total: R$${String.format("%.2f", total)}"
-                    }
+                    cartItems = response.body()?.toMutableList() ?: mutableListOf()
+                    setupAdapter()
+                    updateTotal()
                 }
             }
 
             override fun onFailure(call: Call<List<Produto>>, t: Throwable) {
-                // Tratamento de exception
+                // Tratamento de erro
             }
         })
+    }
+
+    private fun setupAdapter() {
+        cartAdapter = CartAdapter(cartItems, this) { updateTotal() }
+        recyclerView.adapter = cartAdapter
+    }
+
+    private fun updateTotal() {
+        total = cartItems.sumOf { it.produtoPreco?.toDouble() ?: 0.0 * (it.quantidadeDisponivel ?: 1) }
+        totalTextView.text = "Total: R$${String.format("%.2f", total)}"
     }
 }
