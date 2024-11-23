@@ -57,28 +57,19 @@
         app:layout_constraintBottom_toTopOf="@id/goToPaymentButton">
 
         <TextView
-            android:id="@+id/totalTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Total: R$ 39,88"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/discountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Desconto: R$ 10,00"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/finalTotalTextView"
+            android:id="@+id/totalTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total: R$ 29,88"
-            android:textSize="18sp"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
             android:textStyle="bold" />
     </LinearLayout>
 
