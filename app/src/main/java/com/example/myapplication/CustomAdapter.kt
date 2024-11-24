@@ -57,6 +57,8 @@ class CustomAdapter(private val dataSet: List<Produto>) :
             intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
             intent.putExtra("ID_PRODUTO", produto.produtoId)
             intent.putExtra("IMAGEM_URL", produto.imagemUrl)
+            intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
+
             viewHolder.itemView.context.startActivity(intent)
         }
 
