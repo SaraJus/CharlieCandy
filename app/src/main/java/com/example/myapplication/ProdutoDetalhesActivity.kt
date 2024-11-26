@@ -26,7 +26,8 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pagina_produto)
 
         val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome não disponível"
-        val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
+        val descricaoProduto =
+            intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)
         val quantidadeDisponivel = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
         val imagemUrl = intent.getStringExtra("IMAGEM_URL")
@@ -80,16 +81,28 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
         api.adicionarAoCarrinho(userId, produtoId, quantidade).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@ProdutoDetalhesActivity, response.body() ?: "Sucesso!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@ProdutoDetalhesActivity,
+                        response.body() ?: "Sucesso!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     val intent = Intent(this@ProdutoDetalhesActivity, ListaProduto::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this@ProdutoDetalhesActivity, "Resposta não bem-sucedida", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@ProdutoDetalhesActivity,
+                        "Resposta não bem-sucedida",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
-                Toast.makeText(this@ProdutoDetalhesActivity, "Erro na API: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@ProdutoDetalhesActivity,
+                    "Erro na API: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }

@@ -67,7 +67,11 @@ class CartActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Produto>>, t: Throwable) {
-                Toast.makeText(this@CartActivity, "Falha ao buscar itens do carinho. Tente novamente mais tarde.", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@CartActivity,
+                    "Falha ao buscar itens do carinho. Tente novamente mais tarde.",
+                    Toast.LENGTH_LONG
+                ).show()
 
             }
         })
@@ -79,7 +83,7 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun updateTotal() {
-        total = cartItems.sumOf {cartItem ->
+        total = cartItems.sumOf { cartItem ->
             val price = cartItem.produtoPreco?.toDouble() ?: 0.0
             val quantity = cartItem.quantidadeDisponivel ?: 1
             price * quantity

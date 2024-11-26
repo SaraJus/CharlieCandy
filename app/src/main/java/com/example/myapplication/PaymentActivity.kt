@@ -56,7 +56,8 @@ class PaymentActivity : AppCompatActivity() {
                 val selectedAddressId = selectedRadioButton.tag.toString().toInt()
                 enviaOrdem(userId, totalValue ?: 0.0, productList, selectedAddressId)
             } else {
-                Toast.makeText(this, "Por favor, selecione um endereÃƒÂ§o", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Por favor, selecione um endereÃƒÂ§o", Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }
@@ -71,18 +72,25 @@ class PaymentActivity : AppCompatActivity() {
         val api = retrofit.create(OrderApiService::class.java)
         val call = api.getUserAddresses(userId)
         call.enqueue(object : Callback<List<Endereco>> {
-            override fun onResponse(call: Call<List<Endereco>>, response: Response<List<Endereco>>) {
+            override fun onResponse(
+                call: Call<List<Endereco>>,
+                response: Response<List<Endereco>>
+            ) {
                 if (response.isSuccessful) {
                     response.body()?.let { addresses ->
                         populateAddressRadioButtons(addresses)
                     }
                 } else {
-                    Toast.makeText(this@PaymentActivity, "Erro ao carregar endereÃƒÂ§os", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@PaymentActivity,
+                        "Erro ao carregar endereços.",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<Endereco>>, t: Throwable) {
-                Toast.makeText(this@PaymentActivity, "Falha na conexÃ£o", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@PaymentActivity, "Falha na conexão.", Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -90,13 +98,19 @@ class PaymentActivity : AppCompatActivity() {
     private fun populateAddressRadioButtons(addresses: List<Endereco>) {
         addresses.forEach { address ->
             val radioButton = RadioButton(this)
-            radioButton.text = "${address.ENDERECO_LOGRADOURO}, ${address.ENDERECO_NUMERO} - ${address.ENDERECO_COMPLEMENTO}, ${address.ENDERECO_CIDADE} - ${address.ENDERECO_ESTADO}, ${address.ENDERECO_CEP}"
+            radioButton.text =
+                "${address.ENDERECO_LOGRADOURO}, ${address.ENDERECO_NUMERO} - ${address.ENDERECO_COMPLEMENTO}, ${address.ENDERECO_CIDADE} - ${address.ENDERECO_ESTADO}, ${address.ENDERECO_CEP}"
             radioButton.tag = address.ENDERECO_ID
             radioGroup.addView(radioButton)
         }
     }
 
-    private fun enviaOrdem(userId: Int, total: Double, products: ArrayList<Produto>?, addressId: Int) {
+    private fun enviaOrdem(
+        userId: Int,
+        total: Double,
+        products: ArrayList<Produto>?,
+        addressId: Int
+    ) {
         val gson = GsonBuilder().setLenient().create()
         val retrofit = Retrofit.Builder()
             .baseUrl("http://www.thyagoquintas.com.br/") // Atualize com a URL correta
@@ -107,18 +121,29 @@ class PaymentActivity : AppCompatActivity() {
         val orderRequest = OrderRequest(userId, total, products ?: arrayListOf(), addressId)
         val call = api.createOrder(orderRequest)
         call.enqueue(object : Callback<ResponseCompra> {
-            override fun onResponse(call: Call<ResponseCompra>, response: Response<ResponseCompra>) {
+            override fun onResponse(
+                call: Call<ResponseCompra>,
+                response: Response<ResponseCompra>
+            ) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@PaymentActivity, "Pedido realizado com sucesso!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@PaymentActivity,
+                        "Pedido realizado com sucesso!",
+                        Toast.LENGTH_LONG
+                    ).show()
                     startActivity(Intent(this@PaymentActivity, MainActivity::class.java))
                     finish()
                 } else {
-                    Toast.makeText(this@PaymentActivity, "Erro ao realizar pedido", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@PaymentActivity,
+                        "Erro ao realizar pedido",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<ResponseCompra>, t: Throwable) {
-                Toast.makeText(this@PaymentActivity, "Falha na conexÃ£o", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@PaymentActivity, "Falha na conexão", Toast.LENGTH_LONG).show()
             }
         })
     }
