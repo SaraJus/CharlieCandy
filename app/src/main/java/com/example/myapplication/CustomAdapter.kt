@@ -35,7 +35,7 @@ class CustomAdapter(private val dataSet: List<Produto>) :
         viewHolder.nome.setTextColor(android.graphics.Color.parseColor("#BF0B0B"))
 
         // Limita a descrição do produto a 50 caracteres
-        val descricaoCurta = if (produto.produtoDesc.length > 50) {
+        val descricaoCurta = if (produto.produtoDesc?.length!! > 50) {
             produto.produtoDesc.substring(0, 50) + "..."
         } else {
             produto.produtoDesc
