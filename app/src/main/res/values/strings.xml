@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="adicionar">Adicionar</string>
+    <string name="order_successful">Compra realizada com sucesso!</string>
+    <string name="back_to_products">Voltar para a lista de produtos</string>
+    <string name="success_icon">Ícone de sucesso</string>
 
 </resources>

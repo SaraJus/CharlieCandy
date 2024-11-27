@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -59,6 +60,10 @@ class PaymentActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, selecione um endereÃƒÂ§o", Toast.LENGTH_LONG)
                     .show()
             }
+        }
+
+        findViewById<ImageView>(R.id.btnVoltar).setOnClickListener {
+            finish() // Fecha a atividade atual e volta para a anterior
         }
     }
 
@@ -131,7 +136,7 @@ class PaymentActivity : AppCompatActivity() {
                         "Pedido realizado com sucesso!",
                         Toast.LENGTH_LONG
                     ).show()
-                    startActivity(Intent(this@PaymentActivity, MainActivity::class.java))
+                    startActivity(Intent(this@PaymentActivity, SucessActivity::class.java))
                     finish()
                 } else {
                     Toast.makeText(

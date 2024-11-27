@@ -5,31 +5,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
-        <!-- Botão de Voltar -->
-        <ImageView
-            android:id="@+id/btnVoltar"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_voltar"
-            android:contentDescription="Voltar"
-            android:scaleType="centerInside"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <!-- Título da tela -->
+    <TextView
+        android:id="@+id/cartTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Produto"
+        android:textSize="24sp"
+        android:textColor="@color/red2"
+        android:textStyle="bold"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Ícone do Carrinho para Visualizar Itens no Carrinho  -->
-        <ImageView
-            android:id="@+id/btnIrCarrinho"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_carrinho"
-            android:contentDescription="Ir para o Carrinho"
-            android:scaleType="centerInside"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <!-- Botão de Voltar -->
+    <ImageView
+        android:id="@+id/btnVoltar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_voltar"
+        android:contentDescription="Voltar"
+        android:scaleType="centerInside"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Ícone do Carrinho para Visualizar Itens no Carrinho  -->
+    <ImageView
+        android:id="@+id/btnIrCarrinho"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_carrinho"
+        android:contentDescription="Ir para o Carrinho"
+        android:scaleType="centerInside"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Imagem do Produto -->
     <ImageView

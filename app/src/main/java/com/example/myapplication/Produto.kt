@@ -16,3 +16,11 @@ data class Produto(
     @SerializedName("IMAGEM_URL") val imagemUrl: String?,
     @SerializedName("QUANTIDADE_DISPONIVEL") val quantidadeDisponivel: Int?
 ) : Parcelable
+
+@Parcelize
+data class Pedido(
+    @SerializedName("PEDIDO_ID") val pedidoId: Int,
+    @SerializedName("DATA_PEDIDO") val dataPedido: String,
+    @SerializedName("VALOR_TOTAL") val valorTotal: Double,
+    @SerializedName("STATUS") val status: String
+) : Parcelable

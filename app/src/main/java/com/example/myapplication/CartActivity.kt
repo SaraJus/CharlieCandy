@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,6 +47,53 @@ class CartActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+
+        findViewById<ImageView>(R.id.btnVoltar).setOnClickListener {
+            finish() // Fecha a atividade atual e volta para a anterior
+        }
+
+        // Configurar o BottomNavigationView
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+
+                R.id.produtos -> {
+                    Toast.makeText(this, "Produtos selecionado", Toast.LENGTH_SHORT).show()
+                    startActivity(
+                        Intent(
+                            this,
+                            ListaProduto::class.java
+                        )
+                    ) // Navega para ProductsActivity
+                    true
+                }
+
+                R.id.pedidos -> {
+                    Toast.makeText(this, "Pedidos selecionado", Toast.LENGTH_SHORT).show()
+                    startActivity(
+                        Intent(
+                            this,
+                            MeusPedidosActivity::class.java
+                        )
+                    ) // Navega para Pedidos
+                    true
+                }
+
+                R.id.carrinho -> {
+                    Toast.makeText(this, "Carrinho selecionado", Toast.LENGTH_SHORT).show()
+                    startActivity(
+                        Intent(
+                            this,
+                            CartActivity::class.java
+                        )
+                    ) // Navega para CartActivity
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     private fun fetchCartItems() {
@@ -76,6 +125,7 @@ class CartActivity : AppCompatActivity() {
             }
         })
     }
+
 
     private fun setupAdapter() {
         cartAdapter = CartAdapter(cartItems, this) { updateTotal() }

@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botão de Voltar -->
+    <!-- Botão de voltar -->
     <ImageView
         android:id="@+id/btnVoltar"
         android:layout_width="24dp"
@@ -91,11 +91,11 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/red2"
+        android:background="@color/red"
         app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+        app:itemTextColor="@color/CorPrimaria"
         app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -58,32 +59,46 @@ class ListaProduto : AppCompatActivity() {
 
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> {
-                    Toast.makeText(this, "Home selecionado", Toast.LENGTH_SHORT).show()
-                    true
-                }
+
                 R.id.produtos -> {
                     Toast.makeText(this, "Produtos selecionado", Toast.LENGTH_SHORT).show()
+                    startActivity(
+                        Intent(
+                            this,
+                            ListaProduto::class.java
+                        )
+                    ) // Navega para ProductsActivity
                     true
                 }
+
                 R.id.pedidos -> {
                     Toast.makeText(this, "Pedidos selecionado", Toast.LENGTH_SHORT).show()
+                    startActivity(
+                        Intent(
+                            this,
+                            MeusPedidosActivity::class.java
+                        )
+                    ) // Navega para Pedidos
                     true
                 }
+
                 R.id.carrinho -> {
                     Toast.makeText(this, "Carrinho selecionado", Toast.LENGTH_SHORT).show()
+                    startActivity(
+                        Intent(
+                            this,
+                            CartActivity::class.java
+                        )
+                    ) // Navega para CartActivity
                     true
                 }
-                R.id.eu -> {
-                    Toast.makeText(this, "Perfil selecionado", Toast.LENGTH_SHORT).show()
-                    true
-                }
+
                 else -> false
             }
         }
     }
 
-    interface ApiService {
+        interface ApiService {
         @GET("lista_de_produtos")
         fun getProdutos(): Call<List<Produto>>
     }

@@ -28,6 +28,12 @@
             android:name=".PaymentActivity"
             android:exported="false" />
         <activity
+            android:name=".SucessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MeusPedidosActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>

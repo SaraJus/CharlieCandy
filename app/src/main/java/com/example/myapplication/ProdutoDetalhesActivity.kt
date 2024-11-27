@@ -59,8 +59,20 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
 
         btnAdicionarCarrinho.setOnClickListener {
             val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0
+
+            if (quantidadeDesejada <= 0) {
+                Toast.makeText(this, "Insira uma quantidade válida!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (quantidadeDesejada > quantidadeDisponivel) {
+                Toast.makeText(this, "Quantidade maior que o estoque disponível!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
         }
+
 
         // Configuração do ícone do carrinho
         val btnIrCarrinho: ImageView = findViewById(R.id.btnIrCarrinho)
@@ -115,5 +127,5 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
             @Field("produtoId") produtoId: Int,
             @Field("quantidade") quantidade: Int
         ): Call<String>
-    }
-}
+
+    }}
