@@ -47,14 +47,14 @@
     <!-- Resumo do carrinho -->
     <LinearLayout
         android:id="@+id/summaryLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="401dp"
+        android:layout_height="118dp"
         android:background="#F9EDEC"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/goToPaymentButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/goToPaymentButton">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/discountTextView"
@@ -68,8 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textSize="16sp"
             android:textColor="@color/black"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 

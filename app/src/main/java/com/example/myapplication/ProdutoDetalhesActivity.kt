@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -26,60 +25,79 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pagina_produto)
 
         val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome não disponível"
-        val descricaoProduto =
-            intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
+        val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
+        val precoProduto = intent.getStringExtra("PRECO_PRODUTO") ?: "0,00"
+        val descontoProduto = intent.getStringExtra("DESCONTO_PRODUTO") ?: "0,00"
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)
         val quantidadeDisponivel = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
         val imagemUrl = intent.getStringExtra("IMAGEM_URL")
 
-        findViewById<ImageView>(R.id.btnVoltar).setOnClickListener {
-            finish() // Fecha a atividade atual e volta para a anterior
-        }
+        // Configurar elementos da interface
         findViewById<TextView>(R.id.txtNomeProduto).text = nomeProduto
         findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
+        findViewById<TextView>(R.id.txtPrecoProduto).text = "Preço: R$ $precoProduto"
+        findViewById<TextView>(R.id.txtDescontoProduto).text = "Desconto: $descontoProduto"
         findViewById<TextView>(R.id.txtQuantidadeDisponivel).text = "Estoque: $quantidadeDisponivel"
 
         val imgProduto = findViewById<ImageView>(R.id.imgProduto)
         if (!imagemUrl.isNullOrEmpty()) {
             Glide.with(this)
                 .load(imagemUrl)
-                .placeholder(R.drawable.ic_launcher_background) // Adicione uma imagem de placeholder
-                .error(R.drawable.ic_launcher_foreground) // Adicione uma imagem de erro
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_foreground)
                 .into(imgProduto)
-        } else {
-            imgProduto.setImageResource(R.drawable.ic_launcher_background) // Mostra uma imagem de erro caso a URL esteja vazia
         }
 
+        findViewById<ImageView>(R.id.btnVoltar).setOnClickListener {
+            finish() // Fecha a atividade atual e volta para a anterior
+        }
 
-        val editTextQuantidade = findViewById<EditText>(R.id.editQuantidadeDesejada)
+        // Configurar botões de quantidade
+        val btnIncrease = findViewById<ImageView>(R.id.btnIncrease)
+        val btnDecrease = findViewById<ImageView>(R.id.btnDecrease)
+        val txtQuantity = findViewById<TextView>(R.id.txtQuantity)
+
+        btnIncrease.setOnClickListener {
+            val currentQuantity = txtQuantity.text.toString().toInt()
+            if (currentQuantity < quantidadeDisponivel) {
+                txtQuantity.text = (currentQuantity + 1).toString()
+            } else {
+                Toast.makeText(this, "Quantidade máxima disponível no estoque alcançada!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        btnDecrease.setOnClickListener {
+            val currentQuantity = txtQuantity.text.toString().toInt()
+            if (currentQuantity > 1) {
+                txtQuantity.text = (currentQuantity - 1).toString()
+            } else {
+                Toast.makeText(this, "A quantidade mínima é 1!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Configurar botão "Adicionar ao Carrinho"
         val btnAdicionarCarrinho = findViewById<Button>(R.id.btnAdicionarAoCarrinho)
-
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("id", 0)
 
         btnAdicionarCarrinho.setOnClickListener {
-            val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0
-
-            if (quantidadeDesejada <= 0) {
-                Toast.makeText(this, "Insira uma quantidade válida!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            val quantidadeDesejada = txtQuantity.text.toString().toInt()
+            if (quantidadeDesejada > 0 && quantidadeDesejada <= quantidadeDisponivel) {
+                adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
+            } else {
+                Toast.makeText(this, "Insira uma quantidade válida antes de adicionar ao carrinho!", Toast.LENGTH_SHORT).show()
             }
-
-            if (quantidadeDesejada > quantidadeDisponivel) {
-                Toast.makeText(this, "Quantidade maior que o estoque disponível!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
         }
 
-
-        // Configuração do ícone do carrinho
-        val btnIrCarrinho: ImageView = findViewById(R.id.btnIrCarrinho)
-        btnIrCarrinho.setOnClickListener {
-            val intent = Intent(this, CartActivity::class.java)
-            intent.putExtra("userId", userId)
-            startActivity(intent)
+        // Configurar botão "Ir para o Carrinho"
+        findViewById<ImageView>(R.id.btnIrCarrinho).setOnClickListener {
+            if (userId != 0) {
+                val intent = Intent(this, CartActivity::class.java)
+                intent.putExtra("userId", userId)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Erro: Usuário não autenticado.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -93,28 +111,14 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
         api.adicionarAoCarrinho(userId, produtoId, quantidade).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(
-                        this@ProdutoDetalhesActivity,
-                        response.body() ?: "Sucesso!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val intent = Intent(this@ProdutoDetalhesActivity, ListaProduto::class.java)
-                    startActivity(intent)
+                    Toast.makeText(this@ProdutoDetalhesActivity, response.body() ?: "Sucesso!", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(
-                        this@ProdutoDetalhesActivity,
-                        "Resposta não bem-sucedida",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@ProdutoDetalhesActivity, "Resposta não bem-sucedida", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
-                Toast.makeText(
-                    this@ProdutoDetalhesActivity,
-                    "Erro na API: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this@ProdutoDetalhesActivity, "Erro na API: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -127,5 +131,5 @@ class ProdutoDetalhesActivity : AppCompatActivity() {
             @Field("produtoId") produtoId: Int,
             @Field("quantidade") quantidade: Int
         ): Call<String>
-
-    }}
+    }
+}

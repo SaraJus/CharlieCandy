@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -91,9 +92,38 @@ class CartActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.ic_user -> {
+                    // Exibir dropdown para o menu de usuário
+                    showUserMenu()
+                    true
+                }
+
+                else -> false
+            }
+
+        }
+
+    }
+    private fun showUserMenu() {
+        val userMenu = PopupMenu(this, findViewById(R.id.ic_user))
+        userMenu.menuInflater.inflate(R.menu.user_menu, userMenu.menu)
+
+        userMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_logout -> {
+                    // Lógica para logout
+                    val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
+                    sharedPreferences.edit().clear().apply()
+
+                    Toast.makeText(this, "Você saiu da conta", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                    true
+                }
                 else -> false
             }
         }
+        userMenu.show()
     }
 
     private fun fetchCartItems() {

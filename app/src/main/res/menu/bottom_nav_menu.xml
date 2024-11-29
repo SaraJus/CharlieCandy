@@ -14,4 +14,9 @@
         android:icon="@drawable/ic_carrinho2"
         android:title="Carrinho" />
 
+    <item
+        android:id="@+id/ic_user"
+        android:icon="@drawable/ic_user"
+        android:title="Usuário" />
+
 </menu>

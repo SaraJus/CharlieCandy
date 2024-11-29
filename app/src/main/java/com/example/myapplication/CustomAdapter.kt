@@ -55,6 +55,8 @@ class CustomAdapter(private val dataSet: List<Produto>) :
             val intent = Intent(viewHolder.itemView.context, ProdutoDetalhesActivity::class.java)
             intent.putExtra("NOME_PRODUTO", produto.produtoNome)
             intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
+            intent.putExtra("PRECO_PRODUTO", produto.produtoPreco)
+            intent.putExtra("DESCONTO_PRODUTO", produto.produtoDesconto)
             intent.putExtra("ID_PRODUTO", produto.produtoId)
             intent.putExtra("IMAGEM_URL", produto.imagemUrl)
             intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
