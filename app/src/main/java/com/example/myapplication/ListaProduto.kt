@@ -73,16 +73,6 @@ class ListaProduto : AppCompatActivity() {
                     true
                 }
 
-                R.id.pedidos -> {
-                    Toast.makeText(this, "Pedidos selecionado", Toast.LENGTH_SHORT).show()
-                    startActivity(
-                        Intent(
-                            this,
-                            MeusPedidosActivity::class.java
-                        )
-                    ) // Navega para Pedidos
-                    true
-                }
 
                 R.id.carrinho -> {
                     Toast.makeText(this, "Carrinho selecionado", Toast.LENGTH_SHORT).show()

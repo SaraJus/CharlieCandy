@@ -6,6 +6,14 @@
     <color name="red">#D94A4A</color>
     <color name="red2">#BF0B0B</color>
     <color name="gray">#D9D9D9</color>
+    <!-- Vermelhos clean -->
+    <color name="clean_red_primary">#D32F2F</color> <!-- Vermelho principal -->
+    <color name="clean_red_light">#FF6659</color> <!-- Vermelho claro -->
+    <color name="clean_red_dark">#9A0007</color> <!-- Vermelho escuro -->
+
+    <!-- Cinzas clean -->
+    <color name="clean_gray">#F5F5F5</color> <!-- Cinza claro -->
+    <color name="clean_gray_dark">#212121</color> <!-- Cinza escuro -->
 
 
 

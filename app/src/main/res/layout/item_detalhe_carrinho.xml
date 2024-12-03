@@ -40,6 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Remover"
+        android:backgroundTint="#BF0B0B"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Customize your light theme here -->
+        <item name="colorPrimary">@color/clean_red_primary</item>
+        <item name="colorPrimaryContainer">@color/clean_red_light</item>
+        <item name="colorSecondary">@color/clean_gray</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/red</item>
+        <item name="android:windowLightStatusBar">true</item> <!-- Ícones escuros na StatusBar -->
     </style>
 
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />

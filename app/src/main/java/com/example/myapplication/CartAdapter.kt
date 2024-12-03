@@ -44,6 +44,7 @@ class CartAdapter(
         holder.productQuantity.text = "Qtd: ${item.quantidadeDisponivel ?: 1}"
         Glide.with(context).load(item.imagemUrl).into(holder.productImage)
 
+
         holder.deleteButton.setOnClickListener {
             removeItemFromCart(item, position)
         }

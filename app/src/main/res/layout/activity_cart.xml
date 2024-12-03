@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -42,49 +41,40 @@
         app:layout_constraintTop_toBottomOf="@id/cartTitleTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/summaryLayout" />
+        app:layout_constraintBottom_toTopOf="@id/footerLayout" />
 
-    <!-- Resumo do carrinho -->
+    <!-- Contêiner do resumo e botão -->
     <LinearLayout
-        android:id="@+id/summaryLayout"
-        android:layout_width="401dp"
-        android:layout_height="118dp"
-        android:background="#F9EDEC"
+        android:id="@+id/footerLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="#F9EDEC"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@id/goToPaymentButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView">
 
-        <TextView
-            android:id="@+id/discountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="16sp" />
-
+        <!-- Resumo do carrinho -->
         <TextView
             android:id="@+id/totalTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-    <!-- Botão de compra -->
-    <Button
-        android:id="@+id/goToPaymentButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Comprar"
-        android:backgroundTint="@color/red2"
-        android:textColor="#FFFFFF"
-        android:layout_margin="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView" />
+        <!-- Botão de compra -->
+        <Button
+            android:id="@+id/goToPaymentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comprar"
+            android:backgroundTint="@color/red2"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
 
     <!-- BottomNavigationView -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

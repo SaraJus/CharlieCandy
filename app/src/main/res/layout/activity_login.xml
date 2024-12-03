@@ -83,16 +83,6 @@
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
-            <!-- Link de Cadastro -->
-            <TextView
-                android:id="@+id/registerTextView"
-                android:layout_width="227dp"
-                android:layout_height="32dp"
-                android:gravity="center"
-                android:text="Cadastrar - se"
-                android:textColor="#B22222"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

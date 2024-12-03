@@ -6,10 +6,6 @@
         android:icon="@drawable/ic_shop"
         android:title="Produtos" />
     <item
-        android:id="@+id/pedidos"
-        android:icon="@drawable/ic_pedidos"
-        android:title="Pedidos" />
-    <item
         android:id="@+id/carrinho"
         android:icon="@drawable/ic_carrinho2"
         android:title="Carrinho" />
